@@ -1,0 +1,17 @@
+# Github auth issue#
+https://www.youtube.com/watch?v=vApfq1ST2No
+
+# POSTGRESQL #
+\q --| quit psql
+
+psql dbname -U postgres -h localhost --| connect to postgres
+
+ \l --| list databases
+ \c test --| connect to a different db (e.g. test)
+ \dt --| show all the tables
+ \d tablename --| show table schema
+
+CREATE DATABASE test; - craete db test
+
+# UDACITY Resource links #
+https://knowledge.udacity.com/questions/78504 - delete
