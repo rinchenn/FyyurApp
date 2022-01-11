@@ -18,7 +18,8 @@ from forms import *
 
 app = Flask(__name__)
 moment = Moment(app)
-app.config.from_object('config')
+# app.config.from_object('config')
+app.config.from_pyfile('config.py')  # Since the config.py have not defined class
 db = SQLAlchemy(app)
 
 # TODO: connect to a local postgresql database
