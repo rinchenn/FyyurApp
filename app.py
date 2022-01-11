@@ -12,17 +12,25 @@ import logging
 from logging import Formatter, FileHandler
 from flask_wtf import Form
 from forms import *
+from flask_migrate import Migrate
+
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
 
 app = Flask(__name__)
 moment = Moment(app)
+
+# We do not have class defined in config.py
 # app.config.from_object('config')
-app.config.from_pyfile('config.py')  # Since the config.py have not defined class
+
+# Used app.config.from_pyfile since the config.py have not defined class
+app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 
 # TODO: connect to a local postgresql database
+
+migrate = Migrate(app, db)
 
 #----------------------------------------------------------------------------#
 # Models.
