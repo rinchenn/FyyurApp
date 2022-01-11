@@ -1,0 +1,10 @@
+venv/
+desktop.ini
+__pycache__/
+.gitignore
+.idea/.gitignore
+.idea/cd0046-SQL-and-Data-Modeling-for-the-Web.iml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
