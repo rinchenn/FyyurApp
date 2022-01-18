@@ -270,7 +270,7 @@ def show_venue(venue_id):
             "artist_id": artist.id,
             "artist_name": artist.name,
             "artist_image_link": artist.image_link,
-            "start_time": str(pshow.start_time)
+            "start_time": pshow.start_time.strftime("%Y-%m-%d %H:%M:%S")
         }
         pastshows.append(show)
 
@@ -282,7 +282,7 @@ def show_venue(venue_id):
             "artist_id": artist.id,
             "artist_name": artist.name,
             "artist_image_link": artist.image_link,
-            "start_time": str(pshow.start_time)
+            "start_time": fshow.start_time.strftime("%Y-%m-%d %H:%M:%S")
         }
         upcomingshows.append(show)
 
@@ -551,7 +551,7 @@ def show_artist(artist_id):
             "venue_id": venue.id,
             "venue_name": venue.name,
             "venue_image_link": venue.image_link,
-            "start_time": str(pshow.start_time)
+            "start_time": pshow.start_time.strftime("%Y-%m-%d %H:%M:%S")
         }
         pastshows.append(show)
 
@@ -560,11 +560,12 @@ def show_artist(artist_id):
     for fshow in upcoming_shows:
         venue = Venue.query.get(fshow.venue_id)
         show = {
-            "artist_id": venue.id,
-            "artist_name": venue.name,
-            "artist_image_link": venue.image_link,
-            "start_time": str(pshow.start_time)
+            "venue_id": venue.id,
+            "venue_name": venue.name,
+            "venue_image_link": venue.image_link,
+            "start_time": fshow.start_time.strftime("%Y-%m-%d %H:%M:%S")
         }
+        print("Venue Image link: ", venue.image_link)
         upcomingshows.append(show)
 
     print("upcoming shows: ", upcomingshows)
