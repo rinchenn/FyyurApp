@@ -1,4 +1,5 @@
 venv/
+tmp/
 desktop.ini
 __pycache__/
 .gitignore
