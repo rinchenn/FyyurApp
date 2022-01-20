@@ -1,0 +1,1 @@
+from fyyur import app
