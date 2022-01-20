@@ -15,3 +15,5 @@ CREATE DATABASE test; - craete db test
 
 # UDACITY Resource links #
 https://knowledge.udacity.com/questions/78504 - delete
+
+pip install --upgrade sqlalchemy
