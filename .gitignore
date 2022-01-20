@@ -1,5 +1,7 @@
 venv/
 tmp/
+tmp2/
+migrations/
 desktop.ini
 __pycache__/
 .gitignore
@@ -9,4 +11,4 @@ __pycache__/
 .idea/misc.xml
 .idea/modules.xml
 .idea/vcs.xml
-/migrations/
+
