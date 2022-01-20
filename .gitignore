@@ -1,5 +1,6 @@
 venv/
 tmp/
+migrations/
 desktop.ini
 __pycache__/
 .gitignore
