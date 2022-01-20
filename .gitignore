@@ -4,7 +4,7 @@ desktop.ini
 __pycache__/
 .gitignore
 .idea/.gitignore
-.idea/fyyur.iml
+.idea/FyyurApp.iml
 .idea/inspectionProfiles/
 .idea/misc.xml
 .idea/modules.xml
