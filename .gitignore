@@ -1,5 +1,6 @@
 venv/
 tmp/
+Fyyur_completed/
 desktop.ini
 __pycache__/
 .gitignore
