@@ -1,6 +1,5 @@
 venv/
 tmp/
-tmp2/
 desktop.ini
 __pycache__/
 .gitignore
