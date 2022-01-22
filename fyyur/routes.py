@@ -122,25 +122,35 @@ def show_venue(venue_id):
     pastshows = []
     upcomingshows = []
 
-    past_shows = list(filter(lambda x: x.start_time < datetime.today(), venue.shows))
+    # past_shows = list(filter(lambda x: x.start_time < datetime.today(), venue.shows))
+    # Using JOIN (easier than without JOIN!!!! :))
+    past_shows = db.session.query(Show).join(Artist).filter(Show.venue_id == venue_id).filter(Show.start_time < datetime.now()).all()
+
+    # print("New Past Show: ", past_shows_test)
+    # for show in past_shows_test:
+    #     print("xxx", show.venue_id)
+    #     print('name', show.artist.name)
+
+    # Without using JOIN
     upcoming_shows = list(filter(lambda x: x.start_time > datetime.today(), venue.shows))
 
     past_shows_count = len(past_shows)
     upcoming_shows_count = len(upcoming_shows)
 
-    for pshow in past_shows:
-        artist = Artist.query.get(pshow.artist_id)
+    for show in past_shows:
+        # artist = Artist.query.get(pshow.artist_id)
         show = {
-            "artist_id": artist.id,
-            "artist_name": artist.name,
-            "artist_image_link": artist.image_link,
-            "start_time": pshow.start_time.strftime("%Y-%m-%d %H:%M:%S")
+            "artist_id": show.artist_id,
+            "artist_name": show.artist.name,
+            "artist_image_link": show.artist.image_link,
+            "start_time": show.start_time.strftime("%Y-%m-%d %H:%M:%S")
         }
         pastshows.append(show)
 
     print(pastshows)
 
     for fshow in upcoming_shows:
+        # Without using Join
         artist = Artist.query.get(fshow.artist_id)
         show = {
             "artist_id": artist.id,
@@ -302,23 +312,26 @@ def show_artist(artist_id):
     pastshows = []
     upcomingshows = []
 
-    past_shows = list(filter(lambda x: x.start_time < datetime.today(), artist.shows))
+    # Using JOIN - easy to get all the data
+    past_shows = db.session.query(Show).join(Venue).filter(Show.artist_id == artist_id).filter(Show.start_time < datetime.now()).all()
+    # past_shows = list(filter(lambda x: x.start_time < datetime.today(), artist.shows))
+    # Without using JOIN
     upcoming_shows = list(filter(lambda x: x.start_time > datetime.today(), artist.shows))
 
     past_shows_count = len(past_shows)
     upcoming_shows_count = len(upcoming_shows)
 
-    for pshow in past_shows:
-        venue = Venue.query.get(pshow.venue_id)
+    for show in past_shows:
+        # venue = Venue.query.get(pshow.venue_id)
         show = {
-            "venue_id": venue.id,
-            "venue_name": venue.name,
-            "venue_image_link": venue.image_link,
-            "start_time": pshow.start_time.strftime("%Y-%m-%d %H:%M:%S")
+            "venue_id": show.venue.id,
+            "venue_name": show.venue.name,
+            "venue_image_link": show.venue.image_link,
+            "start_time": show.start_time.strftime("%Y-%m-%d %H:%M:%S")
         }
         pastshows.append(show)
 
-    print("past shows: ", pastshows)
+    # print("past shows: ", pastshows)
 
     for fshow in upcoming_shows:
         venue = Venue.query.get(fshow.venue_id)
@@ -433,11 +446,13 @@ def edit_venue(venue_id):
 
     return render_template('forms/edit_venue.html', form=form, venue=venue)
 
+
 @app.route('/venues/<int:venue_id>/edit', methods=['POST'])
 def edit_venue_submission(venue_id):
 
     error = False
-    venue_form = VenueForm(request.form)
+    venue_form = VenueForm(request.form, meta={'csrf': False})
+
     if venue_form.validate():
         try:
 
