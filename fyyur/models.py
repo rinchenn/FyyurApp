@@ -1,5 +1,10 @@
 from fyyur import db
 from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
+
+
+# Initialized without explicit app (Flask instance)
+# db = SQLAlchemy()
 
 #----------------------------------------------------------------------------#
 # Models.

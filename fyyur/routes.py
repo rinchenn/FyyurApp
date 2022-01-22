@@ -1,6 +1,15 @@
 import dateutil.parser
 import babel
-from flask import render_template, request, Response, flash, redirect, url_for, abort, jsonify
+from flask import (
+    render_template,
+    request,
+    Response,
+    flash,
+    redirect,
+    url_for,
+    abort,
+    jsonify
+)
 from fyyur import app, db
 from fyyur.models import Venue, Artist, Show
 from fyyur.forms import *
@@ -123,6 +132,10 @@ def show_venue(venue_id):
     upcomingshows = []
 
     # past_shows = list(filter(lambda x: x.start_time < datetime.today(), venue.shows))
+    #########
+    # SELECT show.artist_id, artist.name, artist.image_link, show.start_time FROM show JOIN artist ON
+    #  show.artist_id = artist.id;
+    ####################################
     # Using JOIN (easier than without JOIN!!!! :))
     past_shows = db.session.query(Show).join(Artist).filter(Show.venue_id == venue_id).filter(Show.start_time < datetime.now()).all()
 
@@ -147,7 +160,7 @@ def show_venue(venue_id):
         }
         pastshows.append(show)
 
-    print(pastshows)
+    # print(pastshows)
 
     for fshow in upcoming_shows:
         # Without using Join
@@ -160,13 +173,13 @@ def show_venue(venue_id):
         }
         upcomingshows.append(show)
 
-    print(upcomingshows)
+    # print(upcomingshows)
 
     data['past_shows'] = pastshows
     data['upcoming_shows'] = upcomingshows
     data['past_shows_count'] = len(pastshows)
     data['upcoming_shows_count'] = len(upcomingshows)
-    print("data: ", data)
+    # print("data: ", data)
 
     # data = list(filter(lambda d: d['id'] == venue_id, [data1, data2, data3]))[0]
     return render_template('pages/show_venue.html', venue=data)
@@ -341,17 +354,17 @@ def show_artist(artist_id):
             "venue_image_link": venue.image_link,
             "start_time": fshow.start_time.strftime("%Y-%m-%d %H:%M:%S")
         }
-        print("Venue Image link: ", venue.image_link)
+        # print("Venue Image link: ", venue.image_link)
         upcomingshows.append(show)
 
-    print("upcoming shows: ", upcomingshows)
+    # print("upcoming shows: ", upcomingshows)
 
     data['past_shows'] = pastshows
     data['upcoming_shows'] = upcomingshows
     data['past_shows_count'] = past_shows_count
     data['upcoming_shows_count'] = upcoming_shows_count
 
-    print("data: ", data)
+    # print("data: ", data)
 
     # data = list(filter(lambda d: d['id'] == artist_id, [data1, data2, data3]))[0]
     return render_template('pages/show_artist.html', artist=data)
